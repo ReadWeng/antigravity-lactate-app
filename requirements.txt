@@ -1,0 +1,8 @@
+streamlit
+requests
+pandas
+numpy
+plotly
+fitparse
+fitdecode
+openpyxl

@@ -222,7 +222,7 @@ def match_csv_records_to_fit(df_fit, start_time, df_csv):
 # ----------------- HTML 報告生成器 -----------------
 
 def generate_html_report(summary_df, fig, start_time, fit_filename, stats_dict):
-    fig_json = fig.to_json()
+    chart_html = fig.to_html(include_plotlyjs='cdn', full_html=False)
     table_rows_html = ""
     for idx, row in summary_df.iterrows():
         table_rows_html += f"""
@@ -244,7 +244,6 @@ def generate_html_report(summary_df, fig, start_time, fit_filename, stats_dict):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>乳酸與生理指標單期分析報告 - {start_time.strftime('%Y-%m-%d')}</title>
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <style>
         body {{
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -334,7 +333,7 @@ def generate_html_report(summary_df, fig, start_time, fit_filename, stats_dict):
         </div>
 
         <div class="chart-container">
-            <div id="plotly-chart" style="width:100%; height:750px;"></div>
+            {chart_html}
         </div>
 
         <h3>📋 乳酸 / 血糖數據與生理指標對照表</h3>
@@ -356,11 +355,6 @@ def generate_html_report(summary_df, fig, start_time, fit_filename, stats_dict):
             </tbody>
         </table>
     </div>
-
-    <script>
-        var figSpec = {fig_json};
-        Plotly.newPlot('plotly-chart', figSpec.data, figSpec.layout, {{responsive: true}});
-    </script>
 </body>
 </html>
 """

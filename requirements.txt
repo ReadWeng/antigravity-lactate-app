@@ -2,7 +2,8 @@ streamlit
 requests
 pandas
 numpy
-plotly
+plotly>=6.0.0
 fitparse
 fitdecode
 openpyxl
+orjson
